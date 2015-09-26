@@ -13,6 +13,8 @@ From the original dataset only measurements on the mean and standard deviation f
 
 ## Variables 
 
+### Classifying variables
+
 The classifying variables are
 
 - 'activity'
@@ -20,20 +22,20 @@ The classifying variables are
 
 Labels for 'activity' are
 
-- 1 WALKING
-- 
-2 WALKING_UPSTAIRS
+1. WALKING
 
-- 3 WALKING_DOWNSTAIRS
+2. WALKING_UPSTAIRS
 
-- 4 SITTING
+3. WALKING_DOWNSTAIRS
 
-- 5 STANDING
+4. SITTING
 
-- 6 LAYING
+5. STANDING
+
+6. LAYING
 
 
-## Measurements
+### Measurements
 
 The measurements included in tidy_data.txt are listed below. For descriptions we refer reader to description of the original dataset. The names of variables has been slightly changed comparing to original by substituting "-" and "," by "_".
 
