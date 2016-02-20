@@ -1,10 +1,23 @@
-## read in column names and changing them
+# Coursera Getting and Cleaning Data course project
+
+# Download dataset if not already in the working directory
+destfile <- "UCI HAR Dataset.zip"
+
+if (!file.exists(destfile)){
+  fileurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  download.file(fileurl, destfile = destfile)
+}
+if (!file.exists("UCI HAR Dataset")) {unzip(destfile)}
+
+
+
+## reading in column names and changing them so that R can process the names
 
 column_names <- read.table("UCI HAR Dataset/features.txt",header = FALSE)
 column_names[,2] <- gsub("-","",column_names[,2])
 column_names[,2] <- gsub(",","_",column_names[,2])
 
-## read in th rest of data
+## read in training and test data
 
 activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt",header = FALSE)
 
@@ -26,7 +39,7 @@ full_data <- rbind(train_data,test_data)
 
 library(dplyr)
 
-full_data <- select(full_data, contains("mean"),contains("Mean"),contains("std"),activities,subjects)
+full_data <- select(full_data, contains("mean"),contains("std"),activities,subjects)
 
 ## Labelling activities
 
@@ -36,5 +49,8 @@ full_data$activities <- factor(full_data$activities,levels = activity_labels[,1]
 
 full_data$subjects <- as.factor(full_data$subjects)
 
-tidy_data <- aggregate(select(full_data,-subjects,-activities),list(activities = full_data$activities, subjects = full_data$subjects),mean)
+tidy_data <- aggregate(select(full_data,-subjects,-activities), by = list(activities = full_data$activities, subjects = full_data$subjects), FUN = mean)
+
+## export the tidy dataset into a textfile
+
 write.table(tidy_data,file = "tidy_data.txt",row.names = FALSE)
